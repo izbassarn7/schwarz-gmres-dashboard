@@ -1,0 +1,14 @@
+build/
+data/*.mtx
+data/*.tar.gz
+results/*.jsonl
+results/*.json
+results/*.png
+*.o
+*.d
+*.so
+*.a
+.cache/
+compile_commands.json
+.vscode/
+.idea/

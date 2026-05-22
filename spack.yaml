@@ -1,0 +1,15 @@
+spack:
+  specs:
+    - petsc@3.21+cuda+mpi+double ^cuda@12.4
+    - trilinos@16.0+cuda+mpi+muelu+belos+ifpack2 ^cuda@12.4
+    - metis@5.1.0
+    - suite-sparse@7.6
+  concretizer:
+    unify: true
+  packages:
+    all:
+      compiler: [gcc@12]
+      providers:
+        mpi: [openmpi@4.1]
+        blas: [openblas]
+        lapack: [openblas]

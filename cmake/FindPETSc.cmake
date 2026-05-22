@@ -1,0 +1,22 @@
+if(DEFINED ENV{PETSC_DIR})
+    set(PETSC_DIR $ENV{PETSC_DIR})
+endif()
+if(DEFINED ENV{PETSC_ARCH})
+    set(PETSC_ARCH $ENV{PETSC_ARCH})
+endif()
+
+find_path(PETSC_INCLUDE_DIR petsc.h
+    HINTS ${PETSC_DIR}/${PETSC_ARCH}/include ${PETSC_DIR}/include)
+find_library(PETSC_LIBRARY petsc
+    HINTS ${PETSC_DIR}/${PETSC_ARCH}/lib ${PETSC_DIR}/lib)
+
+if(PETSC_INCLUDE_DIR AND PETSC_LIBRARY)
+    set(PETSC_FOUND TRUE)
+    add_library(PETSc::PETSc UNKNOWN IMPORTED)
+    set_target_properties(PETSc::PETSc PROPERTIES
+        IMPORTED_LOCATION ${PETSC_LIBRARY}
+        INTERFACE_INCLUDE_DIRECTORIES ${PETSC_INCLUDE_DIR})
+    message(STATUS "Found PETSc: ${PETSC_LIBRARY}")
+else()
+    message(FATAL_ERROR "PETSc not found. Set PETSC_DIR and PETSC_ARCH.")
+endif()
